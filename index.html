@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlumniSphere - Level Up Your Network</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <!-- <div class="loading-logo">🎮</div> -->
+            <div class="loading-text">LOADING ALUMNI NETWORK</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Screen -->
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-container">
+            <div class="auth-header">
+                <div class="logo-container">
+                    <div class="logo-icon">🧑‍🎓</div>
+                    <h1 class="logo-text">AlumniSphere</h1>
+                </div>
+                <p class="tagline">Level Up Your Network • Connect • Achieve</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button id="loginTab" class="auth-tab active" aria-label="Switch to login form">
+                    LOGIN
+                </button>
+                <button id="registerTab" class="auth-tab" aria-label="Switch to register form">
+                    REGISTER
+                </button>
+            </div>
+
+            <form id="authForm" class="auth-form">
+                <div id="registerFields" class="register-fields" style="display: none;">
+                    <div class="input-group">
+                        <label for="fullName">User Name</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" aria-describedby="fullNameHelp">
+                        <small id="fullNameHelp" class="input-help">This will be your display name</small>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="role">Choose Your Class</label>
+                        <select id="role" name="role" aria-describedby="roleHelp">
+                            <option value="alumni">Alumni</option>
+                            <option value="student">Student</option>
+                            <option value="administrator">Faculty</option>
+                        </select>
+                        <small id="roleHelp" class="input-help">Select your current status</small>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="student@university.edu" required aria-describedby="emailHelp">
+                    <small id="emailHelp" class="input-help">Use your university email</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required aria-describedby="passwordHelp">
+                        <button type="button" id="togglePassword" class="password-toggle" aria-label="Toggle password visibility">
+                            <span class="eye-icon">👁️</span>
+                        </button>
+                    </div>
+                    <small id="passwordHelp" class="input-help">Minimum 8 characters</small>
+                </div>
+
+                <button type="submit" id="authSubmit" class="auth-submit-btn" aria-describedby="submitHelp">
+                    <span class="btn-text">Click Enter</span>
+                </button>
+                <small id="submitHelp" class="input-help">Click to enter the platform</small>
+            </form>
+
+            <div class="demo-section">
+                <div class="demo-divider">
+                    <span>OR TRY DEMO ACCOUNTS</span>
+                </div>
+                <div class="demo-buttons">
+                    <button class="demo-btn" data-role="administrator" aria-label="Login as demo administrator">
+                        <span class="demo-text">Faculty</span>
+                    </button>
+                    <button class="demo-btn" data-role="alumni" aria-label="Login as demo alumni">
+                        <span class="demo-text">Alumni</span>
+                    </button>
+                    <button class="demo-btn" data-role="student" aria-label="Login as demo student">
+                        <span class="demo-text">Student</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="main-app" style="display: none;">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <a href="#" style="text-decoration: none;">
+                        <div class="logo-container">
+                        <div class="logo-icon"></div>  <!--logo--> 
+                        <h1 class="logo-text">AlumniSphere</h1>
+                    </div>
+                    </a>
+                </div>
+
+                <div class="header-right">
+                    <div class="user-info">
+                        <span class="welcome-text">Welcome, <span id="userName"></span>!</span>
+                        <div class="user-avatar" id="userAvatar">😊
+
+                        </div>
+                    </div>
+                    <button id="logoutBtn" class="logout-btn" aria-label="Logout from platform">
+                        <span class="btn-text">LOGOUT</span>
+                    </button>
+                    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-items">
+                <button class="nav-item active" data-page="dashboard" aria-label="Go to dashboard">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Profile Details</span>
+                    <span class="nav-badge">NEW</span>
+                </button>
+                <button class="nav-item" data-page="profile" aria-label="Go to profile">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">My Profile</span>
+                </button>
+                <button class="nav-item" data-page="networking" aria-label="Go to networking">
+                    <span class="nav-icon">🌐</span>
+                    <span class="nav-text">Build Network</span>
+                    <span class="nav-notification">3</span>
+                </button>
+                <button class="nav-item" data-page="events" aria-label="Go to events">
+                    <span class="nav-icon">📅</span>
+                    <span class="nav-text">Epic Events</span>
+                </button>
+                <button class="nav-item" data-page="donations" aria-label="Go to donations">
+                    <span class="nav-icon">💎</span>
+                    <span class="nav-text">Support Quest</span>
+                </button>
+                <button class="nav-item admin-only" data-page="admin" aria-label="Go to admin panel" style="display: none;">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Admin Console</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboardPage" class="page active">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span class="title-icon">🏠</span>
+                        Profile Details
+                    </h2>
+                    <p class="page-subtitle">Your mission control for networking success</p>
+                </div>
+
+                <!-- Welcome Banner -->
+                <div class="welcome-banner">
+                    <div class="banner-content">
+                        <div class="banner-text">
+                            <h3 id="greetingText">Hello , Welcome to AlumniSphere</h3>
+                            <p id="roleDescription">Ready to level up your network?</p>
+                        </div>
+                        <div class="banner-stats">
+                            <div class="banner-stat">
+                                <span class="stat-number">247</span>
+                                <span class="stat-label">Connections</span>
+                            </div>
+                            <div class="banner-stat">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Events</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👥</span>
+                            <span class="stat-change">+12%</span>
+                        </div>
+                        <div class="stat-value">247</div>
+                        <div class="stat-label">Network Size</div>
+                        <div class="stat-progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📅</span>
+                            <span class="stat-change">+5</span>
+                        </div>
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Upcoming Events</div>
+                        <div class="stat-progress">
+                            <div class="progress-bar" style="width: 60%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">💬</span>
+                            <span class="stat-change">+8</span>
+                        </div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">New Messages</div>
+                        <div class="stat-progress">
+                            <div class="progress-bar" style="width: 40%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📈</span>
+                            <span class="stat-change">+22%</span>
+                        </div>
+                        <div class="stat-value">89</div>
+                        <div class="stat-label">Profile Views</div>
+                        <div class="stat-progress">
+                            <div class="progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Feed -->
+                <div class="content-grid">
+                    <div class="activity-feed">
+                        <h3 class="section-title">
+                            <span class="title-icon">⚡</span>
+                            Recent Activity
+                        </h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">👥</div>
+                                <div class="activity-content">
+                                    <p class="activity-text">Sarah Johnson accepted your connection request</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                                <button class="activity-action" aria-label="View connection">View</button>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">📅</div>
+                                <div class="activity-content">
+                                    <p class="activity-text">New event: Annual Tech Meetup 2025</p>
+                                    <span class="activity-time">5 hours ago</span>
+                                </div>
+                                <button class="activity-action" aria-label="View event">Join</button>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">💬</div>
+                                <div class="activity-content">
+                                    <p class="activity-text">Michael Chen sent you a message</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                                <button class="activity-action" aria-label="Read message">Read</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-events">
+                        <h3 class="section-title">
+                            <span class="title-icon">🎯</span>
+                            Upcoming Quests
+                        </h3>
+                        <div class="event-list">
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="date-day">15</span>
+                                    <span class="date-month">JAN</span>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Alumni Networking Night</h4>
+                                    <p class="event-details">45 attending • Downtown Center</p>
+                                </div>
+                                <button class="event-action" aria-label="RSVP to event">RSVP</button>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="date-day">22</span>
+                                    <span class="date-month">JAN</span>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Career Workshop</h4>
+                                    <p class="event-details">78 attending • Virtual</p>
+                                </div>
+                                <button class="event-action" aria-label="RSVP to event">RSVP</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3 class="section-title">
+                        <span class="title-icon">⚡</span>
+                        Quick Actions
+                    </h3>
+                    <div class="action-grid">
+                        <button class="action-btn" data-action="find-alumni" aria-label="Find alumni connections">
+                            <span class="action-icon">🔍</span>
+                            <span class="action-text">Find Alumni</span>
+                        </button>
+                        <button class="action-btn" data-action="send-message" aria-label="Send a message">
+                            <span class="action-icon">💬</span>
+                            <span class="action-text">Send Message</span>
+                        </button>
+                        <button class="action-btn" data-action="join-event" aria-label="Join an event">
+                            <span class="action-icon">📅</span>
+                            <span class="action-text">Join Event</span>
+                        </button>
+                        <button class="action-btn" data-action="update-profile" aria-label="Update your profile">
+                            <span class="action-icon">👤</span>
+                            <span class="action-text">Update Profile</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="profilePage" class="page">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span class="title-icon">👤</span>
+                        My Profile
+                    </h2>
+                    <button id="editProfileBtn" class="edit-btn" aria-label="Edit profile">
+                        <span class="btn-icon">✏️</span>
+                        <span class="btn-text">EDIT PROFILE</span>
+                    </button>
+                </div>
+
+                <div class="profile-container">
+                    <!-- Profile Header -->
+                    <div class="profile-header">
+                        <div class="profile-banner"></div>
+                        <div class="profile-info">
+                            <div class="profile-avatar-container">
+                                <div class="profile-avatar" id="profileAvatar">🎮</div>
+                                <button class="avatar-edit-btn" aria-label="Change profile picture">
+                                    <span class="btn-icon">📷</span>
+                                </button>
+                            </div>
+                            <div class="profile-details">
+                                <h3 class="profile-name" id="profileName">Name</h3>
+                                <p class="profile-role" id="profileRole">Alumni</p>
+                                <div class="profile-stats">
+                                    <div class="profile-stat">
+                                        <span class="stat-value">247</span>
+                                        <span class="stat-label">Connections</span>
+                                    </div>
+                                    <div class="profile-stat">
+                                        <span class="stat-value">12</span>
+                                        <span class="stat-label">Events</span>
+                                    </div>
+                                    <div class="profile-stat">
+                                        <span class="stat-value">89</span>
+                                        <span class="stat-label">Profile Views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Form -->
+                    <form id="profileForm" class="profile-form">
+                        <div class="form-grid">
+                            <div class="form-section">
+                                <h4 class="section-title">
+                                    <span class="title-icon">ℹ️</span>
+                                    Basic Information
+                                </h4>
+                                <div class="input-group">
+                                    <label for="profileEmail">Email Address</label>
+                                    <input type="email" id="profileEmail" name="email" disabled>
+                                </div>
+                                <div class="input-group">
+                                    <label for="profileLocation">Location</label>
+                                    <input type="text" id="profileLocation" name="location" placeholder="Enter your location" disabled>
+                                </div>
+                                <div class="input-group">
+                                    <label for="profileBio">Bio</label>
+                                    <textarea id="profileBio" name="bio" placeholder="Tell us about yourself..." rows="3" disabled></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4 class="section-title">
+                                    <span class="title-icon">🎓</span>
+                                    Academic Information
+                                </h4>
+                                <div class="input-group">
+                                    <label for="profileDepartment">Department</label>
+                                    <input type="text" id="profileDepartment" name="department" placeholder="Enter your department" disabled>
+                                </div>
+                                <div class="input-group">
+                                    <label for="profileDegree">Degree/Major</label>
+                                    <input type="text" id="profileDegree" name="degree" placeholder="Enter your degree or major" disabled>
+                                </div>
+                                <div class="input-group">
+                                    <label for="profileYear">Graduation Year/Year of Study</label>
+                                    <input type="number" id="profileYear" name="year" placeholder="2020" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-section alumni-only" style="display: none;">
+                                <h4 class="section-title">
+                                    <span class="title-icon">💼</span>
+                                    Professional Information
+                                </h4>
+                                <div class="input-group">
+                                    <label for="profileJobTitle">Current Job Title</label>
+                                    <input type="text" id="profileJobTitle" name="jobTitle" placeholder="Enter your job title" disabled>
+                                </div>
+                                <div class="input-group">
+                                    <label for="profileCompany">Company</label>
+                                    <input type="text" id="profileCompany" name="company" placeholder="Enter your company" disabled>
+                                </div>
+                                <div class="input-group">
+                                    <label for="profileIndustry">Industry</label>
+                                    <input type="text" id="profileIndustry" name="industry" placeholder="Enter your industry" disabled>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="mentorshipAvailable" name="mentorship" disabled>
+                                    <label for="mentorshipAvailable">Available for mentorship</label>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4 class="section-title">
+                                    <span class="title-icon">🔒</span>
+                                    Privacy Settings
+                                </h4>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="showEmail" name="showEmail" disabled>
+                                    <label for="showEmail">Show email to others</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="showLocation" name="showLocation" disabled>
+                                    <label for="showLocation">Show location to others</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions" id="profileActions" style="display: none;">
+                            <button type="button" id="cancelProfileEdit" class="cancel-btn" aria-label="Cancel profile editing">
+                                <span class="btn-icon">❌</span>
+                                <span class="btn-text">CANCEL</span>
+                            </button>
+                            <button type="submit" class="save-btn" aria-label="Save profile changes">
+                                <span class="btn-icon">💾</span>
+                                <span class="btn-text">SAVE CHANGES</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Networking Page -->
+            <div id="networkingPage" class="page">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span class="title-icon">🌐</span>
+                        Build Network
+                    </h2>
+                    <p class="page-subtitle">Connect with fellow Students and expand your Build</p>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="search-section">
+                    <div class="search-bar">
+                        <input type="text" id="networkSearch" placeholder="Search by name, company, or skills..." aria-label="Search network">
+                        <button class="search-btn" aria-label="Search">
+                            <span class="btn-icon">🔍</span>
+                        </button>
+                    </div>
+                    <div class="filter-controls">
+                        <select id="roleFilter" aria-label="Filter by role">
+                            <option value="">All Classes</option>
+                            <option value="alumni">Alumni Warriors</option>
+                            <option value="student">Student Explorers</option>
+                        </select>
+                        <select id="departmentFilter" aria-label="Filter by department">
+                            <option value="">All Departments</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Business">Business</option>
+                            <option value="Engineering">Engineering</option>
+                        </select>
+                        <input type="text" id="locationFilter" placeholder="Location" aria-label="Filter by location">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="mentorFilter">
+                            <span class="checkmark"></span>
+                            Mentors Only
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Network Content -->
+                <div class="network-content">
+                    <div class="network-main">
+                        <h3 class="section-title">
+                            <span class="title-icon">👥</span>
+                            People You May Know
+                        </h3>
+                        <div class="network-list" id="networkList">
+                            <!-- Network items will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="network-sidebar">
+                        <div class="chat-section" id="chatSection">
+                            <h3 class="section-title">
+                                <span class="title-icon">💬</span>
+                                Recent Messages
+                            </h3>
+                            <div class="chat-list" id="chatList">
+                                <!-- Chat items will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Page -->
+            <div id="eventsPage" class="page">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span class="title-icon">📅</span>
+                        Epic Events
+                    </h2>
+                    <button id="createEventBtn" class="create-btn admin-only" style="display: none;" aria-label="Create new event">
+                        <span class="btn-icon">➕</span>
+                        <span class="btn-text">CREATE EVENT</span>
+                    </button>
+                </div>
+
+                <!-- Event Tabs -->
+                <div class="event-tabs">
+                    <button class="event-tab active" data-tab="upcoming" aria-label="View upcoming events">
+                        <span class="tab-icon">🚀</span>
+                        <span class="tab-text">Upcoming Quests</span>
+                        <span class="tab-count">5</span>
+                    </button>
+                    <button class="event-tab" data-tab="past" aria-label="View past events">
+                        <span class="tab-icon">🏆</span>
+                        <span class="tab-text">Completed</span>
+                        <span class="tab-count">12</span>
+                    </button>
+                </div>
+
+                <!-- Event Filters -->
+                <div class="event-filters">
+                    <button class="filter-btn" aria-label="Filter by category">
+                        <span class="btn-icon">🏷️</span>
+                        <span class="btn-text">Category</span>
+                    </button>
+                    <button class="filter-btn" aria-label="Filter by date">
+                        <span class="btn-icon">📅</span>
+                        <span class="btn-text">Date Range</span>
+                    </button>
+                    <button class="filter-btn" aria-label="Filter by location">
+                        <span class="btn-icon">📍</span>
+                        <span class="btn-text">Location</span>
+                    </button>
+                </div>
+
+                <!-- Events Grid -->
+                <div class="events-grid" id="eventsGrid">
+                    <!-- Events will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Donations Page -->
+            <div id="donationsPage" class="page">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span class="title-icon">💎</span>
+                        Support Quest
+                    </h2>
+                    <p class="page-subtitle">Help level up your university through generous contributions</p>
+                    <button id="createCampaignBtn" class="create-btn admin-only" style="display: none;" aria-label="Create new campaign">
+                        <span class="btn-icon">➕</span>
+                        <span class="btn-text">CREATE CAMPAIGN</span>
+                    </button>
+                </div>
+
+                <!-- Impact Stats -->
+                <div class="impact-stats">
+                    <div class="impact-card">
+                        <div class="impact-icon">💰</div>
+                        <div class="impact-value">$125,000</div>
+                        <div class="impact-label">Total Raised</div>
+                        <div class="impact-progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-icon">🎯</div>
+                        <div class="impact-value">3</div>
+                        <div class="impact-label">Active Campaigns</div>
+                        <div class="impact-progress">
+                            <div class="progress-bar" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-icon">👥</div>
+                        <div class="impact-value">247</div>
+                        <div class="impact-label">Total Donors</div>
+                        <div class="impact-progress">
+                            <div class="progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-icon">📈</div>
+                        <div class="impact-value">$8,500</div>
+                        <div class="impact-label">This Month</div>
+                        <div class="impact-progress">
+                            <div class="progress-bar" style="width: 40%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Campaigns -->
+                <div class="campaigns-section">
+                    <h3 class="section-title">
+                        <span class="title-icon">🎯</span>
+                        Active Campaigns
+                    </h3>
+                    <div class="campaigns-grid" id="campaignsGrid">
+                        <!-- Campaigns will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Donor Recognition -->
+                <div class="donors-section">
+                    <h3 class="section-title">
+                        <span class="title-icon">🏆</span>
+                        Hall of Fame
+                    </h3>
+                    <div class="donors-grid" id="donorsGrid">
+                        <!-- Donors will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Page -->
+            <div id="adminPage" class="page">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span class="title-icon">⚙️</span>
+                        Admin Console
+                    </h2>
+                    <p class="page-subtitle">Master control panel for platform management</p>
+                </div>
+
+                <!-- Admin Tabs -->
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="overview" aria-label="View admin overview">
+                        <span class="tab-icon">📊</span>
+                        <span class="tab-text">Overview</span>
+                    </button>
+                    <button class="admin-tab" data-tab="users" aria-label="Manage users">
+                        <span class="tab-icon">👥</span>
+                        <span class="tab-text">User Management</span>
+                    </button>
+                    <button class="admin-tab" data-tab="events" aria-label="Manage events">
+                        <span class="tab-icon">📅</span>
+                        <span class="tab-text">Event Management</span>
+                    </button>
+                    <button class="admin-tab" data-tab="campaigns" aria-label="Manage campaigns">
+                        <span class="tab-icon">💎</span>
+                        <span class="tab-text">Campaigns</span>
+                    </button>
+                </div>
+
+                <!-- Admin Content -->
+                <div class="admin-content">
+                    <div id="adminOverview" class="admin-section active">
+                        <!-- Admin overview content -->
+                        <div class="admin-stats">
+                            <div class="admin-stat-card">
+                                <div class="stat-header">
+                                    <span class="stat-icon">👥</span>
+                                    <span class="stat-change">+12%</span>
+                                </div>
+                                <div class="stat-value">1,247</div>
+                                <div class="stat-label">Total Users</div>
+                            </div>
+                            <div class="admin-stat-card">
+                                <div class="stat-header">
+                                    <span class="stat-icon">🎓</span>
+                                    <span class="stat-change">+8%</span>
+                                </div>
+                                <div class="stat-value">892</div>
+                                <div class="stat-label">Active Alumni</div>
+                            </div>
+                            <div class="admin-stat-card">
+                                <div class="stat-header">
+                                    <span class="stat-icon">📚</span>
+                                    <span class="stat-change">+15%</span>
+                                </div>
+                                <div class="stat-value">234</div>
+                                <div class="stat-label">Current Students</div>
+                            </div>
+                            <div class="admin-stat-card">
+                                <div class="stat-header">
+                                    <span class="stat-icon">💰</span>
+                                    <span class="stat-change">+22%</span>
+                                </div>
+                                <div class="stat-value">$125K</div>
+                                <div class="stat-label">Total Donations</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="adminUsers" class="admin-section">
+                        <div class="admin-controls">
+                            <button class="admin-btn" aria-label="Add new user">
+                                <span class="btn-icon">➕</span>
+                                <span class="btn-text">ADD USER</span>
+                            </button>
+                            <div class="search-controls">
+                                <input type="text" placeholder="Search users..." aria-label="Search users">
+                                <select aria-label="Filter by role">
+                                    <option>All Roles</option>
+                                    <option>Alumni</option>
+                                    <option>Students</option>
+                                    <option>Administrators</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="users-table" id="usersTable">
+                            <!-- Users table will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div id="adminEvents" class="admin-section">
+                        <p class="coming-soon">Event Management coming soon...</p>
+                    </div>
+
+                    <div id="adminCampaigns" class="admin-section">
+                        <p class="coming-soon">Campaign Management coming soon...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Chat Modal -->
+    <div id="chatModal" class="modal">
+        <div class="modal-content chat-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <span class="title-icon">💬</span>
+                    <span id="chatUserName">Chat</span>
+                </h3>
+                <button class="modal-close" aria-label="Close chat">❌</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be populated by JavaScript -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Type your message..." aria-label="Type message">
+                <button id="sendMessageBtn" class="send-btn" aria-label="Send message">
+                    <span class="btn-icon">🚀</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Donation Modal -->
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <span class="title-icon">💎</span>
+                    Make a Donation
+                </h3>
+                <button class="modal-close" aria-label="Close donation form">❌</button>
+            </div>
+            <form id="donationForm" class="donation-form">
+                <div class="input-group">
+                    <label for="donationCampaign">Campaign</label>
+                    <select id="donationCampaign" required aria-describedby="campaignHelp">
+                        <option value="">Select a campaign</option>
+                    </select>
+                    <small id="campaignHelp" class="input-help">Choose which campaign to support</small>
+                </div>
+                <div class="input-group">
+                    <label for="donationAmount">Amount ($)</label>
+                    <input type="number" id="donationAmount" min="1" required aria-describedby="amountHelp">
+                    <small id="amountHelp" class="input-help">Enter donation amount</small>
+                </div>
+                <div class="amount-buttons">
+                    <button type="button" class="amount-btn" data-amount="25" aria-label="Donate $25">$25</button>
+                    <button type="button" class="amount-btn" data-amount="50" aria-label="Donate $50">$50</button>
+                    <button type="button" class="amount-btn" data-amount="100" aria-label="Donate $100">$100</button>
+                    <button type="button" class="amount-btn" data-amount="500" aria-label="Donate $500">$500</button>
+                </div>
+                <div class="input-group">
+                    <label for="donationMessage">Message (Optional)</label>
+                    <textarea id="donationMessage" placeholder="Leave a message..." rows="3" aria-describedby="messageHelp"></textarea>
+                    <small id="messageHelp" class="input-help">Optional message for the campaign</small>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="anonymousDonation">
+                    <label for="anonymousDonation">Make this donation anonymous</label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" aria-label="Cancel donation">CANCEL</button>
+                    <button type="submit" class="donate-btn" aria-label="Complete donation">
+                        <span class="btn-icon">💎</span>
+                        <span class="btn-text">DONATE NOW</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <span class="title-icon">📅</span>
+                    <span id="eventModalTitle">Event Details</span>
+                </h3>
+                <button class="modal-close" aria-label="Close event details">❌</button>
+            </div>
+            <div class="event-details" id="eventDetails">
+                <!-- Event details will be populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="cancel-btn" aria-label="Close event details">CLOSE</button>
+                <button class="rsvp-btn" aria-label="RSVP to event">
+                    <span class="btn-icon">🎯</span>
+                    <span class="btn-text">RSVP</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <span class="toast-icon">✅</span>
+            <span class="toast-message">Action completed successfully!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
