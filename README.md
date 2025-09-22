@@ -102,4 +102,3 @@ For inquiries, collaborations, or feedback, feel free to reach out via GitHub or
 
 ---
 
-Would you like me to compress this into a one-liner summary for your GitHub bio or add badges for technologies and license?
