@@ -1,5 +1,12 @@
 # 🎓 Alumni Connect B
 
+![HTML5](https://img.shields.io/badge/HTML5-Structure-orange?logo=html5)
+![CSS3](https://img.shields.io/badge/CSS3-Design-blue?logo=css3)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript)
+
+**Alumni Connect B** is a minimalist web-based prototype designed to bridge the gap between alumni and current students. Built using pure HTML, CSS, and JavaScript, it serves as a foundational UI for future integration with backend systems, databases, and authentication services.
+
+
 **Alumni Connect B** is a minimalist web-based prototype designed to bridge the gap between alumni and current students. Built using pure HTML, CSS, and JavaScript, it serves as a foundational UI for future integration with backend systems, databases, and authentication services.
 
 ---
